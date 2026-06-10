@@ -1,4 +1,4 @@
-# MiTV Mundial 2026 - versión Antigravity / Producción
+# MiTV Mundial 2026 - versión Antigravity / Producción (Desplegado)
 
 Aplicación web en Next.js para consultar la parrilla de transmisión del Mundial 2026, seleccionar el medio donde se verá cada partido, enviar avisos por Telegram, agregar eventos al calendario y gestionar pronósticos recreativos personales con actualización de resultados por API.
 
