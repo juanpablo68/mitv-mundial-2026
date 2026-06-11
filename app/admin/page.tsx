@@ -317,15 +317,30 @@ export default function AdminPage() {
           )}
 
           <aside className="card admin-list">
-            <h2>Agregar medio</h2>
+            <h2>Agregar o Editar Medio</h2>
             <label>Marca / canal<input value={newMediaName} onChange={(event) => setNewMediaName(event.target.value)} placeholder="Canal 4 El Salvador" /></label>
             <label>País<input value={newMediaCountry} onChange={(event) => setNewMediaCountry(event.target.value)} placeholder="Guatemala / El Salvador" /></label>
             <label>URL (Link de transmisión)<input value={newMediaUrl} onChange={(event) => setNewMediaUrl(event.target.value)} placeholder="https://..." /></label>
-            <button className="full-button" onClick={addMediaChannel}><Plus size={16} /> Crear medio</button>
+            <button className="full-button" onClick={addMediaChannel}><Plus size={16} /> Guardar / Crear medio</button>
 
             <h2>Medios actuales</h2>
+            <p className="helper-text" style={{ marginBottom: "8px" }}>Haz clic en un canal para editar su link u otros datos:</p>
             <div className="media-row admin-media-list">
-              {media.map((channel) => <span key={channel.id} className="media-badge">{channel.name}</span>)}
+              {media.map((channel) => (
+                <span
+                  key={channel.id}
+                  className="media-badge clickable-badge"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setNewMediaName(channel.name);
+                    setNewMediaCountry(channel.country || "");
+                    setNewMediaUrl(channel.url || "");
+                  }}
+                  title={`Editar ${channel.name}`}
+                >
+                  {channel.name}
+                </span>
+              ))}
             </div>
           </aside>
         </section>
