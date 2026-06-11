@@ -29,6 +29,7 @@ create table if not exists public.media_channels (
   id text primary key,
   name text not null unique,
   country text,
+  url text,
   created_at timestamptz not null default now()
 );
 

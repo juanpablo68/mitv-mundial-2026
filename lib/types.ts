@@ -17,6 +17,7 @@ export type DbMedia = {
   id: string;
   name: string;
   country: string | null;
+  url?: string | null;
 };
 
 export type DbTransmission = {

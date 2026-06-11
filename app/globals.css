@@ -377,6 +377,19 @@ input:focus, select:focus {
   font-weight: 950;
 }
 .media-badge.muted { color: var(--muted); }
+.media-badge.clickable-badge {
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.media-badge.clickable-badge:hover {
+  background: var(--lime);
+  color: #172300;
+  transform: translateY(-1px);
+}
+.media-badge.clickable-badge:active {
+  transform: translateY(0);
+}
 .compact-label { margin-top: -4px; }
 
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }

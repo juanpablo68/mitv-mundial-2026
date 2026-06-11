@@ -48,6 +48,7 @@ export default function AdminPage() {
   const [resultDraft, setResultDraft] = useState<ResultDraft>(EMPTY_RESULT);
   const [newMediaName, setNewMediaName] = useState("");
   const [newMediaCountry, setNewMediaCountry] = useState("");
+  const [newMediaUrl, setNewMediaUrl] = useState("");
   const [status, setStatus] = useState("");
 
   const isAdmin = profile?.role === "admin";
@@ -201,7 +202,8 @@ export default function AdminPage() {
     const { error } = await supabase.from("media_channels").upsert({
       id,
       name: newMediaName.trim(),
-      country: newMediaCountry.trim() || null
+      country: newMediaCountry.trim() || null,
+      url: newMediaUrl.trim() || null
     });
 
     if (error) {
@@ -211,6 +213,7 @@ export default function AdminPage() {
 
     setNewMediaName("");
     setNewMediaCountry("");
+    setNewMediaUrl("");
     setStatus("Medio creado/actualizado.");
     await loadData();
   }
@@ -317,6 +320,7 @@ export default function AdminPage() {
             <h2>Agregar medio</h2>
             <label>Marca / canal<input value={newMediaName} onChange={(event) => setNewMediaName(event.target.value)} placeholder="Canal 4 El Salvador" /></label>
             <label>País<input value={newMediaCountry} onChange={(event) => setNewMediaCountry(event.target.value)} placeholder="Guatemala / El Salvador" /></label>
+            <label>URL (Link de transmisión)<input value={newMediaUrl} onChange={(event) => setNewMediaUrl(event.target.value)} placeholder="https://..." /></label>
             <button className="full-button" onClick={addMediaChannel}><Plus size={16} /> Crear medio</button>
 
             <h2>Medios actuales</h2>

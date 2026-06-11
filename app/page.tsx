@@ -439,7 +439,28 @@ export default function Home() {
 
                     <div className="media-row">
                       <Tv size={16} />
-                      {match.media.length > 0 ? match.media.map((media) => <span key={media.id} className="media-badge">{media.name}</span>) : <span className="media-badge muted">Medio por confirmar</span>}
+                      {match.media.length > 0 ? (
+                        match.media.map((media) =>
+                          media.url ? (
+                            <a
+                              key={media.id}
+                              href={media.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="media-badge clickable-badge"
+                              title={`Ir a la transmisión de ${media.name}`}
+                            >
+                              {media.name}
+                            </a>
+                          ) : (
+                            <span key={media.id} className="media-badge">
+                              {media.name}
+                            </span>
+                          )
+                        )
+                      ) : (
+                        <span className="media-badge muted">Medio por confirmar</span>
+                      )}
                     </div>
 
                     <label className="compact-label">

@@ -13,7 +13,12 @@ function slugify(value: string) {
 export const demoMedia: DbMedia[] = MEDIA_OPTIONS.map((name) => ({
   id: slugify(name),
   name,
-  country: name.includes("El Salvador") ? "El Salvador" : name.includes("Guatemala") ? "Guatemala" : null
+  country: name.includes("El Salvador") ? "El Salvador" : name.includes("Guatemala") ? "Guatemala" : null,
+  url: name.includes("Tigo Sports")
+    ? "https://www.tigosports.com.gt"
+    : name.includes("FOX")
+      ? "https://www.foxsports.com"
+      : "https://www.google.com"
 }));
 
 export const demoMatches: AppMatch[] = staticMatches.map((match) => ({
