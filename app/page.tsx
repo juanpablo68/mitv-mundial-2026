@@ -440,24 +440,32 @@ export default function Home() {
                     <div className="media-row">
                       <Tv size={16} />
                       {match.media.length > 0 ? (
-                        match.media.map((media) =>
-                          media.url ? (
-                            <a
-                              key={media.id}
-                              href={media.url}
-                              target="_blank"
-                              rel="noreferrer"
-                              className="media-badge clickable-badge"
-                              title={`Ir a la transmisión de ${media.name}`}
-                            >
-                              {media.name}
-                            </a>
-                          ) : (
-                            <span key={media.id} className="media-badge">
-                              {media.name}
-                            </span>
-                          )
-                        )
+                        match.media.map((media) => {
+                          if (typeof media.url === "string") {
+                            const isStream = media.url.includes(".m3u8") || media.url.includes(".mp4");
+                            const targetUrl = isStream
+                              ? `/watch?url=${encodeURIComponent(media.url)}&name=${encodeURIComponent(media.name)}`
+                              : media.url;
+                            return (
+                              <a
+                                key={media.id}
+                                href={targetUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="media-badge clickable-badge"
+                                title={`Ir a la transmisión de ${media.name}`}
+                              >
+                                {media.name}
+                              </a>
+                            );
+                          } else {
+                            return (
+                              <span key={media.id} className="media-badge">
+                                {media.name}
+                              </span>
+                            );
+                          }
+                        })
                       ) : (
                         <span className="media-badge muted">Medio por confirmar</span>
                       )}
@@ -468,6 +476,38 @@ export default function Home() {
                       <select value={chosenMediaId} disabled={!canEditUserData || match.media.length === 0} onChange={(event) => updateSelectedMedia(match.id, event.target.value)}>
                         {match.media.map((media) => <option key={media.id} value={media.id}>{media.name}</option>)}
                       </select>
+                      {chosenMediaId && (
+                        (() => {
+                          const selectedMediaItem = match.media.find(m => m.id === chosenMediaId);
+                          if (selectedMediaItem && typeof selectedMediaItem.url === "string") {
+                            const isStream = selectedMediaItem.url.includes(".m3u8") || selectedMediaItem.url.includes(".mp4");
+                            const targetUrl = isStream
+                              ? `/watch?url=${encodeURIComponent(selectedMediaItem.url)}&name=${encodeURIComponent(selectedMediaItem.name)}`
+                              : selectedMediaItem.url;
+                            return (
+                              <a
+                                href={targetUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="watch-now-link"
+                                style={{
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "4px",
+                                  marginTop: "4px",
+                                  color: "var(--primary-dark)",
+                                  fontSize: "0.8rem",
+                                  fontWeight: "900",
+                                  textDecoration: "underline"
+                                }}
+                              >
+                                ▶ Ver transmisión elegida
+                              </a>
+                            );
+                          }
+                          return null;
+                        })()
+                      )}
                     </label>
 
                     <div className="actions">

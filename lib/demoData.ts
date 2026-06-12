@@ -13,12 +13,20 @@ function slugify(value: string) {
 export const demoMedia: DbMedia[] = MEDIA_OPTIONS.map((name) => ({
   id: slugify(name),
   name,
-  country: name.includes("El Salvador") ? "El Salvador" : name.includes("Guatemala") ? "Guatemala" : null,
+  country: name.includes("El Salvador")
+    ? "El Salvador"
+    : name.includes("Guatemala")
+      ? "Guatemala"
+      : name.includes("Costa Rica") || name.includes("Teletica") || name.includes("Coto Brus")
+        ? "Costa Rica"
+        : null,
   url: name.includes("Tigo Sports")
     ? "https://www.tigosports.com.gt"
     : name.includes("FOX")
       ? "https://www.foxsports.com"
-      : "https://www.google.com"
+      : name.includes("Canal Coto Brus TV")
+        ? "https://s1.tvdatta.com:3072/live/cotobrustvlive.m3u8"
+        : "https://www.google.com"
 }));
 
 export const demoMatches: AppMatch[] = staticMatches.map((match) => ({

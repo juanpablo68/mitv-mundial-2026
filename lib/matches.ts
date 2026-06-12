@@ -6,7 +6,8 @@ export type Media =
   | "Canal 13 Guatemala"
   | "Canal 3 Guatemala"
   | "Canal 4 El Salvador"
-  | "Teletica Canal 7";
+  | "Teletica Canal 7"
+  | "Canal Coto Brus TV";
 
 export type Match = {
   id: string;
@@ -28,10 +29,11 @@ export const MEDIA_OPTIONS: Media[] = [
   "Canal 13 Guatemala",
   "Canal 3 Guatemala",
   "Canal 4 El Salvador",
-  "Teletica Canal 7"
+  "Teletica Canal 7",
+  "Canal Coto Brus TV"
 ];
 
-export const matches: Match[] = [
+const rawMatches: Match[] = [
   // FECHA 1
   { id: "m001", round: "Fecha 1", group: "A", date: "2026-06-11", dayLabel: "Jue 11/06", time: "13:00", home: "México", away: "Sudáfrica", media: ["Tigo Sports", "FOX", "Canal 11 Guatemala", "Canal 4 El Salvador", "Teletica Canal 7"] },
   { id: "m002", round: "Fecha 1", group: "A", date: "2026-06-11", dayLabel: "Jue 11/06", time: "20:00", home: "Corea del Sur", away: "Chequia", media: ["Tigo Sports"] },
@@ -72,7 +74,7 @@ export const matches: Match[] = [
   { id: "m035", round: "Fecha 2", group: "E", date: "2026-06-20", dayLabel: "Sáb 20/06", time: "18:00", home: "Ecuador", away: "Curazao", media: ["Tigo Sports", "FOX", "Canal 11 Guatemala"] },
   { id: "m036", round: "Fecha 2", group: "F", date: "2026-06-20", dayLabel: "Sáb 20/06", time: "22:00", home: "Túnez", away: "Japón", media: ["Tigo Sports", "FOX", "Canal 11 Guatemala"] },
   { id: "m037", round: "Fecha 2", group: "H", date: "2026-06-21", dayLabel: "Dom 21/06", time: "10:00", home: "España", away: "Arabia Saudita", media: ["Tigo Sports", "Teletica Canal 7"] },
-  { id: "m038", round: "Fecha 2", group: "G", date: "2026-06-21", dayLabel: "Dom 21/06", time: "13:00", home: "Bélgica", away: "Egipto", media: ["Tigo Sports", "FOX", "Canal 7 Guatemala", "Canal 4 El Salvador"] },
+  { id: "m038", round: "Fecha 2", group: "G", date: "2026-06-21", dayLabel: "Dom 21/06", time: "13:00", home: "Bélgica", away: "Irán", media: ["Tigo Sports", "FOX", "Canal 7 Guatemala", "Canal 4 El Salvador"] },
   { id: "m039", round: "Fecha 2", group: "H", date: "2026-06-21", dayLabel: "Dom 21/06", time: "16:00", home: "Uruguay", away: "Cabo Verde", media: ["Tigo Sports"] },
   { id: "m040", round: "Fecha 2", group: "G", date: "2026-06-21", dayLabel: "Dom 21/06", time: "19:00", home: "Nueva Zelanda", away: "Egipto", media: ["Tigo Sports", "FOX", "Canal 11 Guatemala"] },
   { id: "m041", round: "Fecha 2", group: "J", date: "2026-06-22", dayLabel: "Lun 22/06", time: "11:00", home: "Argentina", away: "Austria", media: ["Tigo Sports", "Canal 4 El Salvador", "Teletica Canal 7"] },
@@ -110,6 +112,14 @@ export const matches: Match[] = [
   { id: "m071", round: "Fecha 3", group: "J", date: "2026-06-27", dayLabel: "Sáb 27/06", time: "20:00", home: "Jordania", away: "Argentina", media: ["Tigo Sports", "FOX", "Canal 11 Guatemala", "Canal 4 El Salvador"] },
   { id: "m072", round: "Fecha 3", group: "J", date: "2026-06-27", dayLabel: "Sáb 27/06", time: "20:00", home: "Argelia", away: "Austria", media: ["Tigo Sports", "FOX", "Canal 13 Guatemala"] }
 ];
+
+export const matches: Match[] = rawMatches.map((match) => {
+  // Canal Coto Brus TV transmite TODOS los 104 partidos
+  if (!match.media.includes("Canal Coto Brus TV")) {
+    match.media.push("Canal Coto Brus TV");
+  }
+  return match;
+});
 
 export function getUniqueDates() {
   return Array.from(new Set(matches.map((match) => match.date)));
