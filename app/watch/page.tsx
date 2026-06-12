@@ -101,7 +101,10 @@ function WatchPlayerContent() {
         {error ? (
           <div className="player-error">
             <p>{error}</p>
-            <a href={url} target="_blank" rel="noreferrer" className="actions button">Abrir link directamente</a>
+            <div style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap", marginTop: "12px" }}>
+              <a href={url} target="_blank" rel="noreferrer" className="actions button">Abrir link directamente</a>
+              <a href={`vlc://${url}`} className="actions button secondary">Abrir en VLC App</a>
+            </div>
           </div>
         ) : (
           <div className="player-wrapper">
@@ -118,8 +121,17 @@ function WatchPlayerContent() {
         )}
       </div>
 
+      <div style={{ display: "flex", gap: "12px", marginTop: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+        <a href={url} target="_blank" rel="noreferrer" className="actions button">
+          Abrir enlace original
+        </a>
+        <a href={`vlc://${url}`} className="actions button secondary">
+          📺 Abrir en VLC (Celular / App)
+        </a>
+      </div>
+
       <div className="footer-note" style={{ marginTop: "20px" }}>
-        <strong>Nota de compatibilidad móvil:</strong> Este reproductor soporta transmisión adaptativa HLS (M3U8) en iOS (Safari nativo) y Android (vía Hls.js). Si experimentas problemas, puedes abrir el enlace directo usando el botón de arriba.
+        <strong>Nota de compatibilidad móvil:</strong> Este reproductor soporta transmisión adaptativa HLS (M3U8). Si experimentas problemas en tu celular (como con enlaces HTTP/CORS), presiona el botón **"Abrir en VLC"** para reproducirlo directamente en la app VLC instalada en tu móvil.
       </div>
     </main>
   );
